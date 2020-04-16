@@ -1,14 +1,14 @@
 {
-  "name": "default",
-  "version": "1.5.1",
-  "description": "The default theme for Omeka S.",
+  "name": "corona-memory",
+  "version": "0.1",
+  "description": "Theme for corona-memory.ch",
   "main": "gulpfile.js",
   "scripts": {
-    "test": "test"
+    "watch": "gulp css:watch"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/omeka-s-themes/default.git"
+    "url": "url is to come..."
   },
   "keywords": [
     "omeka-s",
@@ -29,7 +29,7 @@
   },
   "browserslist": [
     "> 5%",
-    "> 1% in US"
+    "> 1% in CH"
   ],
   "dependencies": {
     "minimist": "^1.2.5"
