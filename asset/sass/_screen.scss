@@ -609,6 +609,39 @@ body.resource #content > h2:first-of-type + h3 {
     margin: -$spacing-l 0 $spacing-l;
 }
 
+//SF
+
+.propgrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1em;
+    grid-auto-flow: dense;
+
+    .property {
+        display: flex;
+        flex-wrap: wrap;
+
+        h4 {
+            margin: 0 1em 0 0;
+            flex-basis: 10em;
+            flex-shrink: 0;
+        }
+    }
+    .resource-link {
+
+        img {
+            width: 100%;
+            height: unset;
+        }
+    }
+    .media-list {
+        margin: 0;
+    }
+    .resource-name {
+        display: none;
+    }
+}
+
 .property {
     margin-bottom: $spacing-l;
 }

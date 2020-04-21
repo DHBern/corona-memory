@@ -5,6 +5,15 @@
 @media screen {
     @import "screen";
 }
+@media (min-width: 800px) {
+    .propgrid {
+        grid-template-columns: minmax(200px,auto) auto;
+
+        .media-list {
+            grid-column-end: -1;
+        }
+    }
+}
 
 @media screen and (min-width:800px) {
     @import "desktop";
