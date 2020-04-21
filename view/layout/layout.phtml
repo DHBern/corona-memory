@@ -47,11 +47,7 @@ $userBar = $this->userBar();
         <header>
             <h1>
                 <a href="<?php echo $site->url(); ?>" class="site-title">
-                <?php if ($this->themeSetting('logo')): ?>
-                    <img src="<?php echo $this->themeSettingAssetUrl('logo'); ?>" alt="<?php echo $escape($siteTitle); ?>" />
-                <?php else: ?>
-                    <?php echo $escape($siteTitle); ?>
-                <?php endif; ?>
+                    <img src="<?php echo $this->assetUrl('img/logo.svg') ?>" alt="<?php echo $escape($siteTitle); ?>" />
                 </a>
             </h1>
 
