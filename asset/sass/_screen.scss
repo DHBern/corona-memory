@@ -515,11 +515,30 @@ footer {
 
 .resource-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, 200px);
+    grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
     grid-gap: 1em;
     justify-content: center;
     .item-thumbnail p {
         line-height: normal;
+    }
+}
+
+/* @end */
+
+/* @group ----- Resource Showcase ----- */
+
+div.item-showcase {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+    div.resource.item:not(:only-child) {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 300px auto auto;
+        width: unset;
+        img {
+            object-fit: cover;
+            max-height: 100%;
+        }
     }
 }
 
