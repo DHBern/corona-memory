@@ -163,7 +163,7 @@ select {
 }
 
 .field.required .field-meta:after {
-    content: "\f069";
+    content: "*";
     font-family: "Font Awesome 5 Free";
     font-size: .75 * $base-font-size;
 }
