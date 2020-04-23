@@ -518,6 +518,9 @@ footer {
     grid-template-columns: repeat(auto-fit, 200px);
     grid-gap: 1em;
     justify-content: center;
+    .item-thumbnail p {
+        line-height: normal;
+    }
 }
 
 /* @end */

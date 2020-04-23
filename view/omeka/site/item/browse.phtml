@@ -63,7 +63,7 @@ foreach ($items as $item):
         <?php
         $thumbnail = $this->thumbnail($item, 'medium');
         if (empty($thumbnail)){
-            $abstract = substr($item->value('dcterms:abstract'),0,50) . "...";
+            $abstract = "<p>".substr($item->value('dcterms:abstract'),0,80) . "...</p>";
             $thumbnail = $abstract;
         }
         echo $item->linkRaw($thumbnail, null, ['class' => 'item-thumbnail']); ?>
