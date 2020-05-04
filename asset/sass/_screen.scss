@@ -293,6 +293,10 @@ header nav ul.open > li {
     padding-top: -1px;
 }
 
+.navigation li:nth-last-of-type(2) {
+    margin-left: auto;
+}
+
 /* Second level items */
 header nav > ul > li > ul > li.active > a {
     margin-left: -1.5em;
