@@ -137,15 +137,19 @@ select {
     -webkit-flex-wrap: wrap;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .field .field-meta {
+    min-width: 300px;
     width: 30%;
+    flex-grow: 1;
     padding: $spacing-s gutter() 0 0;
 }
 
 .field .inputs {
     width: 70%;
+    flex-grow: 1;
     padding-left: gutter();
 
     & > select,
@@ -742,3 +746,23 @@ a.metadata-browse-link {
 }
 
 /* @end */
+
+#link-content {
+    a {
+        display: grid;
+        grid-template-columns: 1fr 5fr;
+        grid-gap: 0.5em;
+        h4 {
+            margin: 0;
+            line-height: normal;
+        }
+        p {
+            margin: 0;
+            font-size: small;
+            line-height: normal;
+        }
+        img {
+            align-self: center;
+        }
+    }
+}

@@ -7,7 +7,7 @@
 }
 @media (min-width: 800px) {
     .propgrid {
-        grid-template-columns: minmax(200px,auto) auto;
+        grid-template-columns: minmax(200px,auto) minmax(auto,500px);
 
         .media-list {
             grid-column-end: -1;
