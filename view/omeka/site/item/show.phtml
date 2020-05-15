@@ -36,7 +36,7 @@ error_reporting(E_ALL);
                             $this->headScript()->appendFile('https://platform.twitter.com/widgets.js');
                             $this->headScript()->appendFile($this->assetUrl('js/embed_tweet.js'));
                         } else { ?>
-                            <div id="link-content"></div>
+                            <div id="link-content"><a href="<?php echo $url ?>" target="_blank"><?php echo $url ?></a> </div>
                             <script>
                                 $.ajax({
                                     url: "https://api.linkpreview.net/?key=2551cec81a33f40ac6c9cfe92f221611&q=<?php echo $url ?>",

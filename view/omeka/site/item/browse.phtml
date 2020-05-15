@@ -61,12 +61,39 @@ foreach ($items as $item):
             <h4><?php echo $item->link($heading); ?></h4>
         </div>
         <?php
-        $thumbnail = $this->thumbnail($item, 'medium');
-        if (empty($thumbnail)){
-            $abstract = "<p>".substr($item->value('dcterms:abstract'),0,80) . "...</p>";
-            $thumbnail = $abstract;
-        }
-        echo $item->linkRaw($thumbnail, null, ['class' => 'item-thumbnail']); ?>
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+
+        $itemMedia = $item->media();
+        foreach ($itemMedia as $media):
+            $thumbnail = $this->thumbnail($item, 'medium');
+
+            if (strpos($media->mediaType(), 'text/html') !== false) :
+                $thumbnail = '<img id="'.$item->id().'" src="'.$this->assetUrl('img/link.png').'" style="width: 150px;">';
+                $url = $media->source(); ?>
+                <script>
+                    /*console.log("running ajax");
+                    $.ajax({
+                        url: "https://api.linkpreview.net/?key=2551cec81a33f40ac6c9cfe92f221611&q=<?php //echo $url; ?>",
+                        type: "GET",
+                        contentType: "application/json",
+                        success: function(result){
+                            console.log("success!");
+                            document.getElementById("<?php //echo $item->id(); ?>").src = `${ result.image }`;
+                        }
+                    });  */
+                </script>
+            <?php
+            endif;
+
+
+            if (empty($thumbnail)){
+                $abstract = "<p>".substr($item->value('dcterms:abstract'),0,80) . "...</p>";
+                $thumbnail = $abstract;
+            }
+            echo $item->linkRaw($thumbnail, null, ['class' => 'item-thumbnail']);
+            endforeach; ?>
     </div>
 <?php endforeach; ?>
 </div>
