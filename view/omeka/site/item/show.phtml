@@ -28,7 +28,7 @@ error_reporting(E_ALL);
                 <?php foreach ($itemMedia as $media):
                     if (strpos($media->mediaType(), 'text') !== false) {
                         $url = $media->source();
-                        if (strpos($url, 'youtube') !== false) {?>
+                        if (strpos($url, 'youtu') !== false) {?>
                             <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/<?php echo substr($url, strpos($url, 'v=')+2,11)?>" style="max-width: 100%;" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         <?php } elseif (strpos($url, 'twitter') !== false) {?>
                             <div id="tweet" tweetID="<?php echo substr($url, strpos($url, 'status/')+7)?>"></div>
