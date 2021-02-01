@@ -4,21 +4,43 @@ $escape = $this->plugin('escapeHtml');
 $this->htmlElement('body')->appendAttribute('class', 'item resource show');
 $embedMedia = $this->siteSetting('item_media_embed', false);
 $itemMedia = $item->media();
-
+$plugins = $this->getHelperPluginManager();
+$hasNext = $plugins->has('previousResource');
+/*
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+error_reporting(E_ALL);*/
+
+function console_log($output, $with_script_tags = true) {
+    $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) .
+        ');';
+    if ($with_script_tags) {
+        $js_code = '<script>' . $js_code . '</script>';
+    }
+    echo $js_code;
+}
 ?>
+
+<?php if ($hasNext): ?>
+    <div class="previous-next-items">
+        <?php if ($previous = $this->previousResource($resource)): ?>
+            <?= $previous->link($translate('Previous item'), null, ['class' => 'previous-item']) ?>
+        <?php endif; ?>
+        <?php if ($next = $this->nextResource($resource)): ?>
+            <?= $next->link($translate('Next item'), null, ['class' => 'next-item']) ?>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>
 
 <?php echo $this->pageTitle($item->displayTitle(), 2); ?>
 <h3><?php echo $translate('Item'); ?></h3>
 <?php $this->trigger('view.show.before'); ?>
 <?php if ($embedMedia && $itemMedia): ?>
     <div class="media-embeds">
-    <?php foreach ($itemMedia as $media):
-        echo $media->render();
-    endforeach;
-    ?>
+        <?php foreach ($itemMedia as $media):
+            echo $media->render();
+        endforeach;
+        ?>
     </div>
 <?php endif; ?>
 <div class="propgrid">
@@ -28,13 +50,15 @@ error_reporting(E_ALL);
                 <?php foreach ($itemMedia as $media):
                     if (strpos($media->mediaType(), 'text') !== false) {
                         $url = $media->source();
-                        if (strpos($url, 'youtu') !== false) {?>
+                        if (strpos($url, 'youtube') !== false) {?>
                             <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/<?php echo substr($url, strpos($url, 'v=')+2,11)?>" style="max-width: 100%;" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        <?php } elseif (strpos($url, 'twitter') !== false) {?>
+                        <?php } elseif (strpos($url, 'youtu.be') !== false) {?>
+                        <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/<?php echo substr($url, strpos($url, '.be/')+4,11)?>" style="max-width: 100%;" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <?php } elseif (strpos($url, 'twitter') !== false) {?>
                             <div id="tweet" tweetID="<?php echo substr($url, strpos($url, 'status/')+7)?>"></div>
-                            <?php
-                            $this->headScript()->appendFile('https://platform.twitter.com/widgets.js');
-                            $this->headScript()->appendFile($this->assetUrl('js/embed_tweet.js'));
+                        <?php
+                        $this->headScript()->appendFile('https://platform.twitter.com/widgets.js');
+                        $this->headScript()->appendFile($this->assetUrl('js/embed_tweet.js'));
                         } else { ?>
                             <div id="link-content"><a href="<?php echo $url ?>" target="_blank"><?php echo $url ?></a> </div>
                             <script>
@@ -61,18 +85,18 @@ error_reporting(E_ALL);
         </div>
     <?php endif; ?>
     <div class="properties">
-    <?php echo $item->displayValues(); ?>
-    <div class="property">
-        <?php $itemSets = $item->itemSets(); ?>
-        <?php if (count($itemSets) > 0): ?>
-        <h4><?php echo $translate('Item sets'); ?></h4>
-        <div class="values">
-            <?php foreach ($itemSets as $itemSet): ?>
-            <div class="value"><a href="<?php echo $escape($itemSet->url()); ?>"><?php echo $itemSet->displayTitle(); ?></a></div>
-            <?php endforeach; ?>
+        <?php echo $item->displayValues(); ?>
+        <div class="property">
+            <?php $itemSets = $item->itemSets(); ?>
+            <?php if (count($itemSets) > 0): ?>
+                <h4><?php echo $translate('Item sets'); ?></h4>
+                <div class="values">
+                    <?php foreach ($itemSets as $itemSet): ?>
+                        <div class="value"><a href="<?php echo $escape($itemSet->url()); ?>"><?php echo $itemSet->displayTitle(); ?></a></div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
         </div>
-        <?php endif; ?>
-    </div>
 
     </div>
 
@@ -84,17 +108,28 @@ $property = $this->params()->fromQuery('property');
 $subjectValues = $item->displaySubjectValues($page, 25, $property);
 ?>
 <?php if ($subjectValues): ?>
-<div id="item-linked">
-    <h3><?php echo $translate('Linked resources'); ?></h3>
-    <?php echo $subjectValues; ?>
-</div>
+    <div id="item-linked">
+        <h3><?php echo $translate('Linked resources'); ?></h3>
+        <?php echo $subjectValues; ?>
+    </div>
 <?php endif; ?>
 
 <?php $this->trigger('view.show.after'); ?>
 
+<?php if ($hasNext): ?>
+    <div class="previous-next-items">
+        <?php if ($previous = $this->previousResource($resource)): ?>
+            <?= $previous->link($translate('Previous item'), null, ['class' => 'previous-item']) ?>
+        <?php endif; ?>
+        <?php if ($next = $this->nextResource($resource)): ?>
+            <?= $next->link($translate('Next item'), null, ['class' => 'next-item']) ?>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>
+
 
 <script type="text/javascript">
     jQuery(document).ready(function() {
-        jQuery(document).trigger('enhance.tablesaw');        
+        jQuery(document).trigger('enhance.tablesaw');
     });
 </script>

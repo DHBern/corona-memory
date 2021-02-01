@@ -12,7 +12,7 @@ $this->headLink()->prependStylesheet('https://fonts.googleapis.com/css2?family=E
 $this->headScript()->prependFile($this->assetUrl('js/default.js'));
 $this->headScript()->prependFile($this->assetUrl('js/global.js', 'Omeka'));
 $this->headScript()->prependFile($this->assetUrl('vendor/jquery/jquery.min.js', 'Omeka'));
-$this->headScript()->prependFile('https://kit.fontawesome.com/53f38da7f9.js', 'text/javascript', array('crossorigin' => 'anonymous'));
+$this->headScript()->prependFile('//kit.fontawesome.com/53f38da7f9.js');
 $this->jsTranslate();
 $this->trigger('view.layout');
 $userBar = $this->userBar();
@@ -47,7 +47,7 @@ $userBar = $this->userBar();
         <header>
             <h1>
                 <a href="<?php echo $site->url(); ?>" class="site-title">
-                    <img src="<?php echo $this->assetUrl('img/logo.svg') ?>" alt="<?php echo $escape($siteTitle); ?>" />
+                    <img src="<?php echo $this->assetUrl('img/logo.svg') ?>" alt="<?php echo $escape($siteTitle); ?>" title="<?php echo $this->translate('Home'); ?>"/>
                 </a>
             </h1>
 

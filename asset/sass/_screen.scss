@@ -36,22 +36,22 @@ h1,h2,h3,h4,h5 {
 }
 
 h1 {
-    font-size: 2 * $base-font-size;
+    font-size: 3 * $base-font-size;
     line-height: 2 * $base-line-height;
 }
 
 h2 {
-    font-size: 1.5 * $base-font-size;
+    font-size: 2.25 * $base-font-size;
     line-height: 1.5 * $base-line-height;
 }
 
 h3 {
-    font-size: 1.25 * $base-font-size;
+    font-size: 1.75 * $base-font-size;
     line-height: 1.5 * $base-line-height;
 }
 
 h4 {
-    font-size: 1.125 * $base-font-size;
+    font-size: 1.5 * $base-font-size;
 }
 
 img {
@@ -118,19 +118,19 @@ select {
 }
 
 ::-webkit-input-placeholder {
-   font-style: italic;
+    font-style: italic;
 }
 
 :-moz-placeholder { /* Firefox 18- */
-   font-style: italic;
+    font-style: italic;
 }
 
 ::-moz-placeholder {  /* Firefox 19+ */
-   font-style: italic;
+    font-style: italic;
 }
 
 :-ms-input-placeholder {
-   font-style: italic;
+    font-style: italic;
 }
 
 .field {
@@ -190,7 +190,7 @@ select {
 /* @group ----- Navigation ----- */
 
 header h1 {
-  margin: 0;
+    margin: 0;
 }
 
 header nav {
@@ -260,19 +260,19 @@ header nav ul {
     li.active {
         font-weight: bold;
     }
-    
+
     li.parent {
         position: relative;
     }
-    
+
     .parent-link {
-      display: flex;
+        display: flex;
     }
 
     .parent-link > a {
         width: calc(100% - #{2 * $spacing-l});
     }
-    
+
     .child-toggle {
         color: $light;
         width: 2 * $spacing-l;
@@ -280,7 +280,7 @@ header nav ul {
         background-color: #fff;
         border-left: 1px solid $light;
         appearance: none;
-        
+
         &:before {
             font-family: "Font Awesome 5 Free";
             content: "\f105";
@@ -422,7 +422,7 @@ nav.pagination {
 /* @group ----- Header ----- */
 
 .site-title h1 {
-    font-size: 1.25 * $base-font-size;
+    font-size: 1.8 * $base-font-size;
     line-height: $base-line-height;
     padding-right: $base-line-height;
 }
@@ -519,11 +519,11 @@ footer {
 
 .resource-list.preview + a {
     color: #000;
-  
+
     &:hover {
-      background-color: $bold;
-      border-bottom-width: 0px;
-      color: #fff;
+        background-color: $bold;
+        border-bottom-width: 0px;
+        color: #fff;
     }
 }
 
@@ -538,6 +538,12 @@ footer {
     justify-content: center;
     .item-thumbnail p {
         line-height: normal;
+    }
+    .item-thumbnail img {
+        width: 100%;
+        height: auto;
+        max-height: 200px;
+        object-fit: contain;
     }
 }
 
@@ -593,12 +599,50 @@ div.item-showcase {
     line-height: 1.5 * $base-line-height;
 }
 
+#advanced-search-form {
+    form {
+        padding-bottom: 3em;
+    }
+    .field {
+        display: block;
+        .inputs {
+            width: unset;
+            padding: 0;
+        }
+    }
+    fieldset {
+        border: none;
+        padding: 0;
+        margin: 0;
+    }
+    input[type=submit] {
+        margin-top: 1em;
+    }
+}
+
+.search-results {
+    .resource-list.list {
+        .items.resource {
+            display: flex;
+
+            .resource-metadata {
+                align-self: center;
+                margin-left: 1em;
+                h4 {
+                    margin: 0;
+                }
+
+            }
+        }
+    }
+}
+
 /* @end */
 
 /* @group ----- Show ----- */
 
 body.resource #content > h2:first-of-type + h3 {
-    font-size: .75 * $base-font-size;
+    font-size: 1.2 * $base-font-size;
     text-transform: uppercase;
     margin: -$spacing-l 0 $spacing-l;
 }
@@ -642,7 +686,7 @@ body.resource #content > h2:first-of-type + h3 {
 
 .property h4 {
     margin-bottom: 0;
-    font-size: .75 * $base-font-size;
+    font-size: 1.25 * $base-font-size;
 }
 
 .resource-link img {
@@ -754,9 +798,9 @@ a.metadata-browse-link {
 #link-content {
     a {
         display: grid;
-        //grid-template-columns: 1fr 5fr;
         grid-template-columns: 1fr;
         grid-auto-columns: 5fr;
+        grid-auto-flow: column;
         grid-gap: 0.5em;
         h4 {
             margin: 0;

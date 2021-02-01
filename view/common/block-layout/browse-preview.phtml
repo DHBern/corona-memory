@@ -17,21 +17,12 @@ foreach ($this->resources as $resource):
     <div class="<?php echo $this->resourceType; ?> resource">
         <h4><?php echo $resource->link($heading); ?></h4>
         <?php
-        $itemMedia = $resource->media();
-        foreach ($itemMedia as $media):
-            $thumbnail = $this->thumbnail($resource, 'medium');
-
-            if (strpos($media->mediaType(), 'text/html') !== false) :
-                $thumbnail = '<img id="'.$resource->id().'" src="'.$this->assetUrl('img/link.png').'" style="width: 150px;">';
-            endif;
-
-
-            if (empty($thumbnail)){
-                $abstract = "<p>".substr($resource->value('dcterms:abstract'),0,80) . "...</p>";
-                $thumbnail = $abstract;
-            }
-            echo $resource->linkRaw($thumbnail, null, ['class' => 'item-thumbnail']);
-        endforeach; ?>
+        $thumbnail = $this->thumbnail($resource, 'medium');
+        if (empty($thumbnail)){
+            $abstract = "<p>".substr($resource->value('dcterms:abstract'),0,120) . "...</p>";
+            $thumbnail = $abstract;
+        }
+        echo $resource->linkRaw($thumbnail, null, ['class' => 'item-thumbnail']); ?>
     </div>
 <?php endforeach; ?>
 </div>

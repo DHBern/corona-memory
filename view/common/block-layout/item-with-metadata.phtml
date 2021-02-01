@@ -18,7 +18,7 @@ $translate = $this->plugin('translate');
                 </div>
             <?php endif; ?>
             <?php if($item->media()): ?>
-                <div class="media-list wuschu">
+                <div class="media-list">
                     <?php
                     foreach ($item->media() as $media):
                         echo $media->linkRaw($this->thumbnail($media, 'large', ['title' => $media->displayTitle()]), null, [

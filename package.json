@@ -1,5 +1,6 @@
 {
   "name": "corona-memory",
+  "version": "0.1",
   "description": "Theme for corona-memory.ch",
   "main": "gulpfile.js",
   "scripts": {
@@ -20,10 +21,10 @@
   },
   "homepage": "https://github.com/omeka-s-themes/default#readme",
   "devDependencies": {
-    "autoprefixer": "^9.8.5",
+    "autoprefixer": "^9.7.6",
     "gulp": "^4.0.2",
     "gulp-postcss": "^8.0.0",
-    "gulp-sass": "^4.1.0",
+    "gulp-sass": "^4.0.2",
     "susy": "^2.2.12"
   },
   "browserslist": [

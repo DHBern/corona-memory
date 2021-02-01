@@ -12,92 +12,62 @@ if ($itemSetShow):
 endif;
 $headingTerm = $this->siteSetting('browse_heading_property_term');
 $bodyTerm = $this->siteSetting('browse_body_property_term');
-$sortHeadings = [
-    [
-        'label' => $translate('Title'),
-        'value' => 'dcterms:title'
-    ],
-    [
-        'label' => $translate('Identifier'),
-        'value' => 'dcterms:identifier'
-    ],
-    [
-        'label' => $translate('Created'),
-        'value' => 'created'
-    ],
-];
 ?>
 
 
 <?php if ($itemSetShow): ?>
-    <?php echo $this->pageTitle($itemSet->displayTitle(), 2); ?>
-    <h3><?php echo $translate('Item set'); ?></h3>
-    <div class="metadata">
-        <?php echo $itemSet->displayValues(); ?>
-    </div>
-    <div class="item-set-items">
+<?php echo $this->pageTitle($itemSet->displayTitle(), 2); ?>
+<h3><?php echo $translate('Item set'); ?></h3>
+<div class="metadata">
+    <?php echo $itemSet->displayValues(); ?>
+</div>
+<div class="item-set-items">
     <?php echo '<h3>' . $escape($translate('Items')) . '</h3>'; ?>
-<?php else: ?>
-    <?php echo $this->pageTitle($translate('Items'), 2); ?>
-<?php endif; ?>
+    <?php else: ?>
+        <?php echo $this->pageTitle($translate('Items'), 2); ?>
+    <?php endif; ?>
 
-<?php echo $this->searchFilters(); ?>
+    <?php echo $this->searchFilters(); ?>
 
-<div class="browse-controls">
-    <?php echo $this->pagination(); ?>
-    <?php echo $this->hyperlink($translate('Advanced search'), $this->url('site/resource', ['controller' => 'item', 'action' => 'search'], ['query' => $query], true), ['class' => 'advanced-search']); ?>
-    <?php echo $this->sortSelector($sortHeadings); ?>
-</div>
-
-<?php $this->trigger('view.browse.before'); ?>
-<div class="resource-list">
-<?php
-foreach ($items as $item):
-    $heading = $headingTerm ? $item->value($headingTerm, ['default' => $translate('[Untitled]')]) : $item->displayTitle();
-    $body = $bodyTerm ? $item->value($bodyTerm) : $item->displayDescription();
-?>
-    <div class="item resource">
-        <div class="item-meta">
-            <h4><?php echo $item->link($heading); ?></h4>
-        </div>
-        <?php
-        ini_set('display_errors', 1);
-        ini_set('display_startup_errors', 1);
-        error_reporting(E_ALL);
-
-        $itemMedia = $item->media();
-        foreach ($itemMedia as $media):
-            $thumbnail = $this->thumbnail($item, 'medium');
-
-            if (strpos($media->mediaType(), 'text/html') !== false) :
-                $thumbnail = '<img id="'.$item->id().'" src="'.$this->assetUrl('img/link.png').'" style="width: 150px;">';
-                $url = $media->source(); ?>
-                <script>
-                    /*console.log("running ajax");
-                    $.ajax({
-                        url: "https://api.linkpreview.net/?key=2551cec81a33f40ac6c9cfe92f221611&q=<?php //echo $url; ?>",
-                        type: "GET",
-                        contentType: "application/json",
-                        success: function(result){
-                            console.log("success!");
-                            document.getElementById("<?php //echo $item->id(); ?>").src = `${ result.image }`;
-                        }
-                    });  */
-                </script>
-            <?php
-            endif;
-
-
-            if (empty($thumbnail)){
-                $abstract = "<p>".substr($item->value('dcterms:abstract'),0,80) . "...</p>";
-                $thumbnail = $abstract;
-            }
-            echo $item->linkRaw($thumbnail, null, ['class' => 'item-thumbnail']);
-            endforeach; ?>
+    <div class="browse-controls">
+        <?php echo $this->pagination();?>
+        <a href="<?php echo str_replace("item", "", $_SERVER["SCRIPT_URI"]) ?>search?<?php echo $_SERVER['QUERY_STRING']?>"><?php echo $translate('Advanced search')?></a>
     </div>
-<?php endforeach; ?>
-</div>
-<?php $this->trigger('view.browse.after'); ?>
-<div class="browse-controls">
-    <?php echo $this->pagination(); ?>
-</div>
+
+    <?php $this->trigger('view.browse.before'); ?>
+    <div class="resource-list">
+        <?php
+        foreach ($items as $item):
+            $heading = $headingTerm ? $item->value($headingTerm, ['default' => $translate('[Untitled]')]) : $item->displayTitle();
+            $body = $bodyTerm ? $item->value($bodyTerm) : $item->displayDescription();
+            ?>
+            <div class="item resource">
+                <div class="item-meta">
+                    <h4><?php echo $item->link($heading); ?></h4>
+                </div>
+                <?php
+                $itemMedia = $item->media();
+                $thumbnail = $this->thumbnail($item, 'medium');
+                foreach ($itemMedia as $media):
+
+
+                    if (strpos($media->mediaType(), 'text/html') !== false) :
+                        $thumbnail = '<img id="'.$item->id().'" src="'.$this->assetUrl('img/link.png').'" style="width: 150px;">';
+                        $url = $media->source();
+
+                    endif;
+                endforeach;
+                if (empty($thumbnail)) :
+                    $abstract = "<p>".substr($item->value('dcterms:abstract'),0,120) . "...</p>";
+                    $thumbnail = $abstract;
+                endif;
+
+                echo $item->linkRaw($thumbnail, null, ['class' => 'item-thumbnail']);
+                ?>
+            </div>
+        <?php endforeach; ?>
+    </div>
+    <?php $this->trigger('view.browse.after'); ?>
+    <div class="browse-controls">
+        <?php echo $this->pagination(); ?>
+    </div>
